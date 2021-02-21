@@ -16,7 +16,7 @@ const guessFunction = function () {
       document.querySelector('.message').textContent = '🎊 right guess...';
       document.querySelector('.number').textContent = secret;
       document.querySelector('body').style.backgroundColor = 'green';
-      document.querySelector('.number').style.width = '30 rem';
+      document.querySelector('.number').style.width = '30rem';
       if (score > highscore) {
         highscore = score;
         document.querySelector('.highscore').textContent = highscore;
@@ -25,13 +25,9 @@ const guessFunction = function () {
       document.querySelector('.check').textContent = 'Again???';
 
       document.querySelector('.check').addEventListener('click', againFunction);
-    } else if (guessNumber > secret) {
-      document.querySelector('.message').textContent = 'too high';
-      score--;
-      document.querySelector('.score').textContent = score;
-      document.querySelector('body').style.backgroundColor = '#222';
-    } else if (guessNumber < secret) {
-      document.querySelector('.message').textContent = 'too low';
+    } else if (guessNumber !== secret) {
+      document.querySelector('.message').textContent =
+        guessNumber > secret ? 'too high' : 'too low';
       score--;
       document.querySelector('.score').textContent = score;
       document.querySelector('body').style.backgroundColor = '#222';
@@ -50,8 +46,9 @@ const againFunction = function () {
   document.querySelector('.score').textContent = score;
   document.querySelector('.number').textContent = '?';
   document.querySelector('body').style.backgroundColor = '#222';
-  document.querySelector('.number').style.width = '25 rem';
+  document.querySelector('.number').style.width = '15rem';
   document.querySelector('.guess').value = '';
+  document.querySelector('.check').textContent = 'Check!';
 };
 
 document.querySelector('.check').addEventListener('click', guessFunction);
@@ -60,7 +57,6 @@ document.querySelector('.again').addEventListener('click', againFunction);
 
 document.querySelector('.guess').addEventListener('keypress', function (e) {
   if (e.key === 'Enter') {
-    console.log('hh');
     guessFunction();
   }
 });
