@@ -57,3 +57,10 @@ const againFunction = function () {
 document.querySelector('.check').addEventListener('click', guessFunction);
 
 document.querySelector('.again').addEventListener('click', againFunction);
+
+document.querySelector('.guess').addEventListener('keypress', function (e) {
+  if (e.key === 'Enter') {
+    console.log('hh');
+    guessFunction();
+  }
+});
