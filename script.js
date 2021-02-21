@@ -1,9 +1,12 @@
 'use strict';
 
-let secret = Math.trunc(Math.random() * 20) + 1;
+const ini = {
+  secret: Math.trunc(Math.random() * 20) + 1,
+  score: 20,
+  highscore: 0,
+};
 
-let score = 20;
-let highscore = 0;
+// console.log(ini.secret);
 
 const displayMessage = function (message) {
   document.querySelector('.message').textContent = message;
@@ -11,28 +14,29 @@ const displayMessage = function (message) {
 
 const guessFunction = function () {
   const guessNumber = Number(document.querySelector('.guess').value);
-  if (score > 0 && guessNumber !== secret) {
+  if (ini.score > 0 && guessNumber !== ini.secret) {
     if (guessNumber <= 0) {
       displayMessage('⛔INVALID NUMBER, try again!!!');
       document.querySelector('body').style.backgroundColor = 'blue';
-    } else if (guessNumber !== secret) {
-      displayMessage(guessNumber > secret ? 'too high' : 'too low');
-      score--;
-      document.querySelector('.score').textContent = score;
+    } else if (guessNumber !== ini.secret) {
+      displayMessage(guessNumber > ini.secret ? 'too high' : 'too low');
+      ini.score--;
+      document.querySelector('.score').textContent = ini.score;
       document.querySelector('body').style.backgroundColor = '#222';
     }
-  } else if (score > 0 && guessNumber === secret) {
+  } else if (ini.score > 0 && guessNumber === ini.secret) {
     displayMessage('🎊 right guess...');
-    document.querySelector('.number').textContent = secret;
+    document.querySelector('.number').textContent = ini.secret;
     document.querySelector('body').style.backgroundColor = 'green';
     document.querySelector('.number').style.width = '30rem';
-    if (score > highscore) {
-      highscore = score;
-      document.querySelector('.highscore').textContent = highscore;
+    if (ini.score > ini.highscore) {
+      ini.highscore = ini.score;
+      document.querySelector('.highscore').textContent = ini.highscore;
     }
 
     document.querySelector('.check').disabled = true;
     document.querySelector('.guess').disabled = true;
+
     document.querySelector('.check').textContent = 'You Won!😉';
   } else {
     displayMessage('GAME OVER!!!! TRY AGAIN😪');
@@ -42,10 +46,10 @@ const guessFunction = function () {
 };
 
 const againFunction = function () {
-  score = 20;
-  secret = Math.trunc(Math.random() * 20) + 1;
+  ini.score = 20;
+  ini.secret = Math.trunc(Math.random() * 20) + 1;
   displayMessage('Start guessing...');
-  document.querySelector('.score').textContent = score;
+  document.querySelector('.score').textContent = ini.score;
   document.querySelector('.number').textContent = '?';
   document.querySelector('body').style.backgroundColor = '#222';
   document.querySelector('.number').style.width = '15rem';
